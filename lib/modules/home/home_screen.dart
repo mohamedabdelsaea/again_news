@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:again_news/core/theme/app_color.dart';
 import 'package:again_news/model/category_model.dart';
 import 'package:again_news/modules/home/widgets/drawer_home.dart';
@@ -41,8 +42,14 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       body: _selectedCategory == null
-          ? HomeCategory()
+          ? HomeCategory(
+        onCategoryClicked: onCategoryClicked,
+      )
           : SelectedCategory(),
     );
+  }
+  void onCategoryClicked(CategoryModel selectedCategory){
+    _selectedCategory = selectedCategory ;
+    log(selectedCategory.categoryID);
   }
 }

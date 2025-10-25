@@ -5,7 +5,12 @@ import '../../../core/theme/app_color.dart';
 import '../../../model/category_model.dart';
 
 class HomeCategory extends StatelessWidget {
-  const HomeCategory({super.key});
+  final void Function(CategoryModel) onCategoryClicked;
+
+  const HomeCategory({
+    super.key,
+    required this.onCategoryClicked,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -69,9 +74,12 @@ class HomeCategory extends StatelessWidget {
                   children: [
                     Image.asset(categoryList[index].categoryImg),
                     GestureDetector(
+                      onTap: () {
+                        onCategoryClicked (categoryList[index]);
+                      },
                       child: Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 30),
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                         height: 55,
                         width: 175,
                         decoration: BoxDecoration(
@@ -82,8 +90,7 @@ class HomeCategory extends StatelessWidget {
                               ? TextDirection.ltr
                               : TextDirection.rtl,
                           child: Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
                                 'View All ',
@@ -109,12 +116,11 @@ class HomeCategory extends StatelessWidget {
                 );
               },
               itemCount: categoryList.length,
-              separatorBuilder: (context, index) =>
-                  SizedBox(height: 20),
+              separatorBuilder: (context, index) => SizedBox(height: 20),
             ),
           ],
         ),
       ),
     );
-    }
+  }
 }
