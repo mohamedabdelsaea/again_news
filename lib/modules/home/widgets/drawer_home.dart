@@ -1,5 +1,7 @@
 import 'package:again_news/core/route/page_route_name.dart';
+import 'package:again_news/modules/manager/provider_setting.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/theme/app_color.dart';
 
@@ -9,6 +11,7 @@ class DrawerHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var provider = Provider.of<ProviderSetting>(context);
     return Drawer(
       surfaceTintColor: AppColor.black,
       width: size.width * 0.7,
@@ -33,7 +36,8 @@ class DrawerHome extends StatelessWidget {
           SizedBox(height: 15),
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, PageRouteName.home);
+              provider.getHome();
+              Navigator.pop(context);
             },
             child: Row(
               children: [

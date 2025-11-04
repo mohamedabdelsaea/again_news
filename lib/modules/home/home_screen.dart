@@ -4,7 +4,9 @@ import 'package:again_news/model/category_model.dart';
 import 'package:again_news/modules/home/widgets/drawer_home.dart';
 import 'package:again_news/modules/home/widgets/home_category.dart';
 import 'package:again_news/modules/home/widgets/selected_category.dart';
+import 'package:again_news/modules/manager/provider_setting.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,11 +16,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  CategoryModel? _selectedCategory;
-
-
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<ProviderSetting>(context);
     return Scaffold(
       backgroundColor: AppColor.white,
       drawer: DrawerHome(),
@@ -26,7 +26,9 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: AppColor.white,
         centerTitle: true,
         title: Text(
-          'Home',
+          provider.selectedCategory == null
+              ? 'Home'
+              : provider.selectedCategory!.categoryID,
           style: TextStyle(
             color: AppColor.black,
             fontWeight: FontWeight.bold,
@@ -41,15 +43,14 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      body: _selectedCategory == null
+      body: provider.selectedCategory == null
           ? HomeCategory(
-        onCategoryClicked: onCategoryClicked,
-      )
-          : SelectedCategory(),
+              categoryList: provider.categoryList,
+              onCategoryClicked: provider.onCategoryClicked,
+            )
+          : SelectedCategory(
+              categoryModel: provider.selectedCategory!,
+            ),
     );
-  }
-  void onCategoryClicked(CategoryModel selectedCategory){
-    _selectedCategory = selectedCategory ;
-    log(selectedCategory.categoryID);
   }
 }

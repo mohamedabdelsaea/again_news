@@ -1,9 +1,14 @@
 import 'package:again_news/core/route/app_routes.dart';
 import 'package:again_news/core/route/page_route_name.dart';
+import 'package:again_news/modules/manager/provider_setting.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => ProviderSetting(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

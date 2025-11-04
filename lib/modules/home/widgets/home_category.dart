@@ -5,53 +5,18 @@ import '../../../core/theme/app_color.dart';
 import '../../../model/category_model.dart';
 
 class HomeCategory extends StatelessWidget {
+  final List<CategoryModel> categoryList;
   final void Function(CategoryModel) onCategoryClicked;
 
   const HomeCategory({
     super.key,
+    required this.categoryList,
     required this.onCategoryClicked,
   });
 
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    List<CategoryModel> categoryList = [
-      CategoryModel(
-        categoryID: 'general',
-        categoryName: 'general',
-        categoryImg: 'assets/images/general_img.png',
-      ),
-      CategoryModel(
-        categoryID: 'business',
-        categoryName: 'business',
-        categoryImg: 'assets/images/business_img.png',
-      ),
-      CategoryModel(
-        categoryID: 'sports',
-        categoryName: 'sports',
-        categoryImg: 'assets/images/sports_img.png',
-      ),
-      CategoryModel(
-        categoryID: 'technology',
-        categoryName: 'technology',
-        categoryImg: 'assets/images/technology_img.png',
-      ),
-      CategoryModel(
-        categoryID: 'entertainment',
-        categoryName: 'entertainment',
-        categoryImg: 'assets/images/entertainment_img.png',
-      ),
-      CategoryModel(
-        categoryID: 'health',
-        categoryName: 'health',
-        categoryImg: 'assets/images/health_img.png',
-      ),
-      CategoryModel(
-        categoryID: 'science',
-        categoryName: 'science',
-        categoryImg: 'assets/images/science_img.png',
-      ),
-    ];
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15.0),
@@ -75,7 +40,7 @@ class HomeCategory extends StatelessWidget {
                     Image.asset(categoryList[index].categoryImg),
                     GestureDetector(
                       onTap: () {
-                        onCategoryClicked (categoryList[index]);
+                        onCategoryClicked(categoryList[index]);
                       },
                       child: Container(
                         margin:
