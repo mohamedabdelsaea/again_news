@@ -5,6 +5,7 @@ import 'package:again_news/modules/home/widgets/drawer_home.dart';
 import 'package:again_news/modules/home/widgets/home_category.dart';
 import 'package:again_news/modules/home/widgets/selected_category.dart';
 import 'package:again_news/modules/manager/provider_setting.dart';
+import 'package:again_news/network/api_network.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,10 +17,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late final CategoryModel categoryModel;
+
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<ProviderSetting>(context);
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          ApiNetwork.getAllSources("sports");
+        },
+      ),
       backgroundColor: AppColor.white,
       drawer: DrawerHome(),
       appBar: AppBar(
