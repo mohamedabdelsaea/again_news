@@ -1,7 +1,9 @@
 import 'package:again_news/model/category_model.dart';
+import 'package:again_news/modules/manager/provider_setting.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class SelectedCategory extends StatelessWidget {
+class SelectedCategory extends StatefulWidget {
   final CategoryModel categoryModel;
 
   const SelectedCategory({
@@ -10,7 +12,43 @@ class SelectedCategory extends StatelessWidget {
   });
 
   @override
+  State<SelectedCategory> createState() => _SelectedCategoryState();
+}
+
+class _SelectedCategoryState extends State<SelectedCategory> {
+  late ProviderSetting _provider;
+
+  @override
+  void initState() {
+    _provider = Provider.of<ProviderSetting>(context, listen: false);
+    Future.wait([
+      _provider.getAllSources(),
+    ]).then(
+      (value) {},
+    );
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          DefaultTabController(
+            length: _provider.sourcesList.length,
+            child: TabBar(
+              isScrollable: true,
+              tabs: _provider.sourcesList
+                  .map(
+                    (e) => Text(e.id),
+                  )
+                  .toList(),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

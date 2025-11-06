@@ -1,9 +1,10 @@
 import 'dart:developer';
+import 'package:again_news/model/source_model.dart';
+import 'package:again_news/network/api_network.dart';
 import 'package:flutter/material.dart';
 import '../../model/category_model.dart';
 
 class ProviderSetting extends ChangeNotifier {
-
   List<CategoryModel> _categoryList = [
     CategoryModel(
       categoryID: 'general',
@@ -41,9 +42,14 @@ class ProviderSetting extends ChangeNotifier {
       categoryImg: 'assets/images/science_img.png',
     ),
   ];
+
   CategoryModel? _selectedCategory;
 
+  List<Source> _sourcesList = [];
+
   CategoryModel? get selectedCategory => _selectedCategory;
+
+  List<Source> get sourcesList => _sourcesList;
 
   List<CategoryModel> get categoryList => _categoryList;
 
@@ -53,8 +59,13 @@ class ProviderSetting extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getHome (){
-    _selectedCategory = null ;
+  void getHome() {
+    _selectedCategory = null;
     notifyListeners();
+  }
+
+ Future<void> getAllSources() async {
+   _sourcesList = await ApiNetwork.getAllSources(_selectedCategory!.categoryID);
+   notifyListeners();
   }
 }
