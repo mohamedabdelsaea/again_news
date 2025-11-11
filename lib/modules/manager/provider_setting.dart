@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../model/category_model.dart';
 
 class ProviderSetting extends ChangeNotifier {
-  List<CategoryModel> _categoryList = [
+  final List<CategoryModel> _categoryList = [
     CategoryModel(
       categoryID: 'general',
       categoryName: 'general',
@@ -64,8 +64,9 @@ class ProviderSetting extends ChangeNotifier {
     notifyListeners();
   }
 
- Future<void> getAllSources() async {
-   _sourcesList = await ApiNetwork.getAllSources(_selectedCategory!.categoryID);
-   notifyListeners();
+  Future<void> getAllSources() async {
+    _sourcesList =
+        await ApiNetwork.getAllSources(_selectedCategory!.categoryID);
+    notifyListeners();
   }
 }

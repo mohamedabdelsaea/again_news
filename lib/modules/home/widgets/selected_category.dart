@@ -31,24 +31,30 @@ class _SelectedCategoryState extends State<SelectedCategory> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          DefaultTabController(
-            length: _provider.sourcesList.length,
-            child: TabBar(
-              isScrollable: true,
-              tabs: _provider.sourcesList
-                  .map(
-                    (e) => Text(e.id),
-                  )
-                  .toList(),
+    return Consumer<ProviderSetting>(
+      builder: (context, _provider, child) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            DefaultTabController(
+              length: _provider.sourcesList.length,
+              child: TabBar(
+                isScrollable: true,
+                tabAlignment: TabAlignment.start,
+                indicatorPadding: EdgeInsets.zero,
+                labelPadding: const EdgeInsets.symmetric(horizontal: 6.0),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+                tabs: _provider.sourcesList
+                    .map(
+                      (e) => Text(e.name),
+                    )
+                    .toList(),
+              ),
             ),
-          ),
-        ],
-      ),
+          ],
+        );
+      },
     );
   }
 }

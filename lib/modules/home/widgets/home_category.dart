@@ -1,6 +1,4 @@
-import 'package:again_news/core/route/page_route_name.dart';
 import 'package:flutter/material.dart';
-
 import '../../../core/theme/app_color.dart';
 import '../../../model/category_model.dart';
 
@@ -48,7 +46,7 @@ class HomeCategory extends StatelessWidget {
                         height: 55,
                         width: 175,
                         decoration: BoxDecoration(
-                            color: AppColor.white.withOpacity(0.5),
+                            color: AppColor.white.withAlpha(125),
                             borderRadius: BorderRadius.circular(30)),
                         child: Directionality(
                           textDirection: index % 2 == 0
