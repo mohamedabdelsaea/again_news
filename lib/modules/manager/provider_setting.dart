@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:again_news/model/article_model.dart';
 import 'package:again_news/model/source_model.dart';
 import 'package:again_news/network/api_network.dart';
 import 'package:flutter/material.dart';
@@ -44,14 +45,22 @@ class ProviderSetting extends ChangeNotifier {
   ];
 
   CategoryModel? _selectedCategory;
-
+  int _selectedTapIndex = 0;
   List<Source> _sourcesList = [];
+  List<Article> _articlesList = [];
 
   CategoryModel? get selectedCategory => _selectedCategory;
 
   List<Source> get sourcesList => _sourcesList;
 
   List<CategoryModel> get categoryList => _categoryList;
+
+  List<Article> get articlesList => _articlesList;
+
+  void setSelectedIndex(int index) {
+    _selectedTapIndex = index;
+    notifyListeners();
+  }
 
   void onCategoryClicked(CategoryModel selectedCategory) {
     _selectedCategory = selectedCategory;
@@ -61,12 +70,28 @@ class ProviderSetting extends ChangeNotifier {
 
   void getHome() {
     _selectedCategory = null;
+    log('${_selectedTapIndex.toString()}--- index');
     notifyListeners();
   }
 
-  Future<void> getAllSources() async {
-    _sourcesList =
-        await ApiNetwork.getAllSources(_selectedCategory!.categoryID);
+  Future<bool> getAllSources() async {
+    try {
+      _sourcesList = await ApiNetwork.getAllSources(
+        _selectedCategory!.categoryID,
+      );
+      log(_sourcesList.toString());
+      notifyListeners();
+      return Future.value(true);
+    } catch (error) {
+      return Future.value(false);
+    }
+  }
+
+  Future<void> getAllArticles() async {
+    _articlesList =
+        await ApiNetwork.getAllArticles(_sourcesList[_selectedTapIndex].id);
+    log('عدد المقالات: ${_articlesList.length}');
+    log(_articlesList.toString());
     notifyListeners();
   }
 }
