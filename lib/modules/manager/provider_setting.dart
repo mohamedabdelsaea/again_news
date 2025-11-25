@@ -70,7 +70,6 @@ class ProviderSetting extends ChangeNotifier {
 
   void getHome() {
     _selectedCategory = null;
-    log('${_selectedTapIndex.toString()}--- index');
     notifyListeners();
   }
 
@@ -80,6 +79,7 @@ class ProviderSetting extends ChangeNotifier {
         _selectedCategory!.categoryID,
       );
       log(_sourcesList.toString());
+      log(_selectedCategory!.categoryID);
       notifyListeners();
       return Future.value(true);
     } catch (error) {

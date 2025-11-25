@@ -21,12 +21,20 @@ abstract class ApiNetwork {
       var response = await http.get(uir);
 
       // log(response.body);
-      // log(response.toString());
-      Map<String, dynamic> data = jsonDecode(response.body);
+      log(response.request.toString());
+      var data = jsonDecode(response.body);
+
+      List dataList = data["sources"];
+
+      List<Source> sourcesList = dataList
+          .map(
+            (e) => Source.fromJson(e),
+          )
+          .toList();
 
       SourcesModel sourcesModel = SourcesModel.fromJson(data);
 
-      return sourcesModel.source;
+      return sourcesList;
     } catch (error) {
       throw Exception(error.toString());
     }
@@ -46,7 +54,7 @@ abstract class ApiNetwork {
       var response = await http.get(uir);
 
       log(response.body);
-      log(response.toString());
+      // log(response.toString());
       Map<String, dynamic> data = jsonDecode(response.body);
 
       ArticleModel articleModel = ArticleModel.fromJson(data);

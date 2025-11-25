@@ -27,10 +27,8 @@ class Source {
     required this.name,
   });
 
-  factory Source.fromJson(Map<String, dynamic> json) {
-    return Source(
-      id: json["id"],
-      name: json["name"],
-    );
-  }
+  factory Source.fromJson(Map<String, dynamic> json) => Source(
+        id: json["id"],
+        name: json["name"],
+      );
 }

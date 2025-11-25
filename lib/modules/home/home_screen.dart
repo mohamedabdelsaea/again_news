@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          ApiNetwork.getAllSources("sports");
+          ApiNetwork.getAllSources("general");
         },
       ),
       backgroundColor: AppColor.white,
