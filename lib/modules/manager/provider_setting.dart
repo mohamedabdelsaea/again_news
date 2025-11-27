@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:again_news/model/article_model.dart';
 import 'package:again_news/model/source_model.dart';
 import 'package:again_news/network/api_network.dart';
@@ -57,14 +56,13 @@ class ProviderSetting extends ChangeNotifier {
 
   List<Article> get articlesList => _articlesList;
 
-  void setSelectedIndex(int index) {
+   setSelectedIndex(int index) {
     _selectedTapIndex = index;
     notifyListeners();
   }
 
   void onCategoryClicked(CategoryModel selectedCategory) {
     _selectedCategory = selectedCategory;
-    log(selectedCategory.categoryID);
     notifyListeners();
   }
 
@@ -78,8 +76,6 @@ class ProviderSetting extends ChangeNotifier {
       _sourcesList = await ApiNetwork.getAllSources(
         _selectedCategory!.categoryID,
       );
-      log(_sourcesList.toString());
-      log(_selectedCategory!.categoryID);
       notifyListeners();
       return Future.value(true);
     } catch (error) {
@@ -87,11 +83,16 @@ class ProviderSetting extends ChangeNotifier {
     }
   }
 
-  Future<void> getAllArticles() async {
-    _articlesList =
-        await ApiNetwork.getAllArticles(_sourcesList[_selectedTapIndex].id);
-    log('عدد المقالات: ${_articlesList.length}');
-    log(_articlesList.toString());
-    notifyListeners();
+  Future<bool> getAllArticles() async {
+    try {
+      _articlesList = await ApiNetwork.getAllArticles(
+        _sourcesList[_selectedTapIndex].id,
+      );
+      notifyListeners();
+
+      return Future.value(true);
+    } catch (error) {
+      return Future.value(false);
+    }
   }
 }

@@ -32,8 +32,6 @@ abstract class ApiNetwork {
           )
           .toList();
 
-      SourcesModel sourcesModel = SourcesModel.fromJson(data);
-
       return sourcesList;
     } catch (error) {
       throw Exception(error.toString());
