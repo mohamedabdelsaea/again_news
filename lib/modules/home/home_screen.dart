@@ -55,8 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
               categoryList: provider.categoryList,
               onCategoryClicked: provider.onCategoryClicked,
             )
-          : SelectedCategory(
-            ),
+          : SelectedCategory(),
     );
   }
 }

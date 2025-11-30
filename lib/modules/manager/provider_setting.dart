@@ -56,7 +56,7 @@ class ProviderSetting extends ChangeNotifier {
 
   List<Article> get articlesList => _articlesList;
 
-   setSelectedIndex(int index) {
+   void setSelectedIndex(int index) {
     _selectedTapIndex = index;
     notifyListeners();
   }

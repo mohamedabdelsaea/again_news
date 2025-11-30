@@ -77,7 +77,7 @@ class _SelectedCategoryState extends State<SelectedCategory> {
                     vertical: 10, horizontal: 20),
                 itemBuilder: (context, index) {
                   final article = value.articlesList[index];
-                  final image = article.urlToImage ?? "";
+                  final image = article.urlToImage;
 
                   return Container(
                     width: size.width * 0.9,

@@ -4,6 +4,8 @@ import 'package:again_news/modules/manager/provider_setting.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 void main() {
   runApp(ChangeNotifierProvider(
     create: (context) => ProviderSetting(),
@@ -14,13 +16,13 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       onGenerateRoute: AppRoutes.onGenerateRoute,
       initialRoute: PageRouteName.home,
+      navigatorKey: navigatorKey,
     );
   }
 }

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:again_news/core/route/page_route_name.dart';
 import 'package:again_news/core/theme/app_color.dart';
+import 'package:again_news/main.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -18,8 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
       Duration(seconds: 2),
       () {
-        Navigator.pushNamedAndRemoveUntil(
-          context,
+        navigatorKey.currentState!.pushNamedAndRemoveUntil(
           PageRouteName.home,
           (route) => false,
         );
