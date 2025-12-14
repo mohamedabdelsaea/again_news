@@ -1,10 +1,15 @@
 import 'package:again_news/model/article_model.dart';
 import 'package:again_news/model/source_model.dart';
 import 'package:again_news/network/api_network.dart';
-import 'package:flutter/material.dart';
-import '../../model/category_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../model/category_model.dart';
 
-class ProviderSetting extends ChangeNotifier {
+part 'stats.dart';
+
+class HomeCubit extends Cubit<HomeStats> {
+  HomeCubit() : super(InitialHomeStat());
+
+  static HomeCubit get(context) => BlocProvider.of(context);
   final List<CategoryModel> _categoryList = [
     CategoryModel(
       categoryID: 'general',
@@ -58,41 +63,44 @@ class ProviderSetting extends ChangeNotifier {
 
   void setSelectedIndex(int index) {
     _selectedTapIndex = index;
-    getAllArticles();
-    notifyListeners();
+    emit(SetSelectedCategoryStat());
   }
 
   void onCategoryClicked(CategoryModel selectedCategory) {
     _selectedCategory = selectedCategory;
-    notifyListeners();
+    emit(SetSelectedCategoryStat());
   }
 
   void getHome() {
     _selectedCategory = null;
-    notifyListeners();
+    emit(SetSelectedCategoryStat());
   }
 
   Future<bool> getAllSources() async {
+    emit(LoadingGetAllSourcesStat());
     try {
       _sourcesList = await ApiNetwork.getAllSources(
         _selectedCategory!.categoryID,
       );
-      notifyListeners();
+      emit(SuccessGetAllSourcesStat());
       return Future.value(true);
     } catch (error) {
+      emit(ErrorGetAllSourcesStat());
       return Future.value(false);
     }
   }
 
   Future<bool> getAllArticles() async {
+    emit(LoadingGetAllArticlesStat());
     try {
       _articlesList = await ApiNetwork.getAllArticles(
         _sourcesList[_selectedTapIndex].id,
       );
-      notifyListeners();
+      emit(SuccessGetAllArticlesStat());
 
       return Future.value(true);
     } catch (error) {
+      emit(ErrorGetAllArticlesStat());
       return Future.value(false);
     }
   }

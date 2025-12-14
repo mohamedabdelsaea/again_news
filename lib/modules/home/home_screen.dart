@@ -3,9 +3,9 @@ import 'package:again_news/model/category_model.dart';
 import 'package:again_news/modules/home/widgets/drawer_home.dart';
 import 'package:again_news/modules/home/widgets/home_category.dart';
 import 'package:again_news/modules/home/widgets/selected_category.dart';
-import 'package:again_news/modules/manager/provider_setting.dart';
+import 'package:again_news/modules/manager/cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,37 +19,41 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<ProviderSetting>(context);
-    return Scaffold(
-      backgroundColor: AppColor.white,
-      drawer: DrawerHome(),
-      appBar: AppBar(
-        backgroundColor: AppColor.white,
-        centerTitle: true,
-        title: Text(
-          provider.selectedCategory == null
-              ? 'Home'
-              : provider.selectedCategory!.categoryID,
-          style: TextStyle(
-            color: AppColor.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
-          ),
-        ),
-        actions: [
-          Icon(
-            Icons.search_outlined,
-            color: AppColor.black,
-            size: 30,
-          )
-        ],
-      ),
-      body: provider.selectedCategory == null
-          ? HomeCategory(
-              categoryList: provider.categoryList,
-              onCategoryClicked: provider.onCategoryClicked,
-            )
-          : SelectedCategory(),
-    );
+    return BlocConsumer<HomeCubit, HomeStats>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          var cubit = HomeCubit.get(context);
+          return Scaffold(
+            backgroundColor: AppColor.white,
+            drawer: DrawerHome(),
+            appBar: AppBar(
+              backgroundColor: AppColor.white,
+              centerTitle: true,
+              title: Text(
+                cubit.selectedCategory == null
+                    ? 'Home'
+                    : cubit.selectedCategory!.categoryID,
+                style: TextStyle(
+                  color: AppColor.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                ),
+              ),
+              actions: [
+                Icon(
+                  Icons.search_outlined,
+                  color: AppColor.black,
+                  size: 30,
+                )
+              ],
+            ),
+            body: cubit.selectedCategory == null
+                ? HomeCategory(
+                    categoryList: cubit.categoryList,
+                    onCategoryClicked: cubit.onCategoryClicked,
+                  )
+                : SelectedCategory(),
+          );
+        });
   }
 }
