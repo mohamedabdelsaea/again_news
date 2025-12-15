@@ -1,4 +1,6 @@
+import 'package:again_news/core/route/page_route_name.dart';
 import 'package:again_news/core/theme/app_color.dart';
+import 'package:again_news/main.dart';
 import 'package:again_news/model/category_model.dart';
 import 'package:again_news/modules/home/widgets/drawer_home.dart';
 import 'package:again_news/modules/home/widgets/home_category.dart';
@@ -40,10 +42,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               actions: [
-                Icon(
-                  Icons.search_outlined,
-                  color: AppColor.black,
-                  size: 30,
+                GestureDetector(
+                  onTap: () {
+                    navigatorKey.currentState!.pushNamedAndRemoveUntil(
+                      PageRouteName.sibha,
+                      (route) => false,
+                    );
+                  },
+                  child: Icon(
+                    Icons.search_outlined,
+                    color: AppColor.black,
+                    size: 30,
+                  ),
                 )
               ],
             ),
