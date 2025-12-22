@@ -44,9 +44,8 @@ class _HomeScreenState extends State<HomeScreen> {
               actions: [
                 GestureDetector(
                   onTap: () {
-                    navigatorKey.currentState!.pushNamedAndRemoveUntil(
-                      PageRouteName.sibha,
-                      (route) => false,
+                    navigatorKey.currentState!.pushNamed(
+                      PageRouteName.search,
                     );
                   },
                   child: Icon(

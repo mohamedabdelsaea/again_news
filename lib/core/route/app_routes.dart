@@ -1,6 +1,6 @@
 import 'package:again_news/core/route/page_route_name.dart';
 import 'package:again_news/modules/home/home_screen.dart';
-import 'package:again_news/modules/splash/sibha_screen.dart';
+import 'package:again_news/modules/home/search/search_screen.dart';
 import 'package:again_news/modules/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -15,11 +15,10 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (context) => HomeScreen(),
         );
-      case PageRouteName.sibha:
+      case PageRouteName.search:
         return MaterialPageRoute(
-          builder: (context) => SibhaScreen(),
+          builder: (context) => SearchScreen(),
         );
-
       default:
         return MaterialPageRoute(
           builder: (context) => SplashScreen(),

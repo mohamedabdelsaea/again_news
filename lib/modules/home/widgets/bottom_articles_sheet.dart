@@ -2,6 +2,7 @@ import 'package:again_news/core/theme/app_color.dart';
 import 'package:again_news/model/article_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BottomArticlesSheet {
   static void show(BuildContext context, Article article) {
@@ -54,13 +55,19 @@ class BottomArticlesSheet {
                   style: FilledButton.styleFrom(
                     backgroundColor: AppColor.black,
                     foregroundColor: AppColor.white,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(8)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadiusGeometry.circular(8)),
                     textStyle: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    launchUrl(
+                      Uri.parse(article.url ?? 'error'),
+                      mode: LaunchMode.inAppBrowserView,
+                    );
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
