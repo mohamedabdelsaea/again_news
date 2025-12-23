@@ -39,6 +39,7 @@ dependencies:
   skeletonizer: ^2.1.1
   flutter_bloc: ^9.1.1
   url_launcher: ^6.3.2
+  lottie:
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +65,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/animation/
 
 
 

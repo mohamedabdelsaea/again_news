@@ -1,9 +1,22 @@
 import 'package:again_news/core/theme/app_color.dart';
 import 'package:again_news/main.dart';
+import 'package:again_news/model/article_model.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
-class SearchScreen extends StatelessWidget {
+class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
+
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
+  List<Article> article = [];
+  int maxPage = 0;
+
+  int currentPage = 0;
+  String? errorMessage = '';
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +71,22 @@ class SearchScreen extends StatelessWidget {
               ),
             ),
           ),
+          SliverToBoxAdapter(
+            child: SizedBox(height: 100),
+          ),
+          if (article.isEmpty)
+            SliverToBoxAdapter(
+                child: Lottie.asset('assets/animation/empty.json')),
+          if (article.isNotEmpty)
+            SliverList.separated(
+              itemBuilder: (context, index) {
+                return ;
+              },
+              separatorBuilder: (context, index) {
+                return SizedBox(height: 5);
+              },
+              itemCount: article.length,
+            )
         ],
       ),
     );
