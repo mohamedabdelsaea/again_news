@@ -64,4 +64,32 @@ abstract class ApiNetwork {
       throw Exception(error.toString());
     }
   }
+
+  static Future<List<Article>> search({required String search,required int pageNumber}) async {
+    try {
+      var queryParameters = {
+        "q": search,
+        "page": pageNumber.toString(),
+        "pageSize": 10,
+      };
+      var uir = Uri.https(
+        Constants.baseUrL,
+        Constants.everyThink,
+        queryParameters,
+      );
+      var response = await http.get(uir);
+
+      log(response.body);
+      // log(response.toString());
+      Map<String, dynamic> data = jsonDecode(response.body);
+
+      ArticleModel articleModel = ArticleModel.fromJson(data);
+
+      log(data.toString());
+
+      return articleModel.articles;
+    } catch (error) {
+      throw Exception(error.toString());
+    }
+  }
 }
